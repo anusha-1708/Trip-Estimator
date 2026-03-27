@@ -1,0 +1,23 @@
+import api from "./axiosInstance";
+
+export const registerUser = async (data) => {
+  console.log("Data received in registerUser:", data);
+  const response = await api.post("/auth/signup", data);
+  console.log("API Response in registerUser:", response);
+  return response.data;
+};
+
+export const loginUser = async (data) => {
+  const response = await api.post("/auth/login", data);
+  return response.data;
+};
+
+export const getCurrentUser = async () => {
+  const response = await api.get("/auth/me");
+  return response.data;
+};
+
+export const logoutUser = async () => {
+  const response = await api.post("/auth/logout");
+  return response.data;
+};
