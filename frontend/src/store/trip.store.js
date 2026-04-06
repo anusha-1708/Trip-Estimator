@@ -9,6 +9,8 @@ import {
 export const initialState = {
   trips: [],
   searchQuery: "",
+  selectedPrice: null,
+  selectedSortValue: "none",
 };
 
 export const fetchAllTripsAsync = createAsyncThunk(
@@ -83,6 +85,14 @@ const formSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+
+    setSelectedPrice: (state, action) => {
+      state.selectedPrice = action.payload;
+    },
+
+    setSelectedSortValue: (state, action) => {
+      state.selectedSortValue = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -137,5 +147,6 @@ const formSlice = createSlice({
       });
   },
 });
-export const { setSearchQuery } = formSlice.actions;
+export const { setSearchQuery, setSelectedPrice, setSelectedSortValue } =
+  formSlice.actions;
 export default formSlice.reducer;

@@ -88,7 +88,9 @@ const StepperForm = ({ selectedId, onClose }) => {
               </Step>
             ))}
           </Stepper>
-          <div>{renderComponent(activeStep)}</div>
+          <div className="max-h-[80vh] overflow-y-auto">
+            {renderComponent(activeStep)}
+          </div>
           <Stack
             direction={"column"}
             width={200}

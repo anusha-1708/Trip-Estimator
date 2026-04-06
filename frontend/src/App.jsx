@@ -64,7 +64,7 @@ function App() {
       )}
 
       <Modal open={open} onClose={handleClose}>
-        <div className="absolute bg-white p-4 top-1/2 left-1/2 shadow-xl rounded-lg -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute bg-white p-4 top-1/2 left-1/2 shadow-xl rounded-lg -translate-x-1/2 -translate-y-1/2 max-h-[90vh] w-[90%] max-w-4xl">
           <div className="flex justify-end">
             <IoMdClose
               className="h-5 w-auto cursor-pointer"

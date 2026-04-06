@@ -14,7 +14,7 @@ const OtherExpenses = ({ index, remove, calculateTotal }) => {
   const isExpenseTouched = touchedFields?.otherExpense?.[index]?.otherExpenses;
 
   return (
-    <div className="w-200 h-80 m-4 p-4 shadow-xl">
+    <div className="w-200 h-80 m-4 p-4 shadow-xl ">
       <div className="relative">
         <IoMdClose
           className="absolute top-2 right-2 w-5 h-5 cursor-pointer"

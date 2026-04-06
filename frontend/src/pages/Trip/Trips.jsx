@@ -12,10 +12,14 @@ import { AiOutlineControl } from "react-icons/ai";
 import { RiUserSharedLine } from "react-icons/ri";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { FaArrowCircleDown } from "react-icons/fa";
-import { Dialog } from "@mui/material";
 import DialogBox from "../../component/DailogModal/Dailog";
-import { deleteTripAsync } from "../../store/trip.store";
-import { fetchAllTripsAsync } from "../../store/trip.store";
+import {
+  fetchAllTripsAsync,
+  deleteTripAsync,
+  setSearchQuery,
+  setSelectedSortValue,
+  setSelectedPrice,
+} from "../../store/trip.store";
 import { downloadTripSummary } from "../../api/trip";
 import ShareTripModal from "../../component/DailogModal/ShareTripModal";
 import DeleteModal from "../../component/DailogModal/DeleteModal";
@@ -30,16 +34,22 @@ const MyTrips = ({ isOpen }) => {
   const [modalMode, setModalMode] = useState(null);
   const { filteredTrips } = useFilterTrips();
   const dispatch = useDispatch();
-  // const { trips } = useSelector((state) => state.stepper);
+  const { selectedSortValue, selectedPrice } = useSelector(
+    (state) => state.stepper,
+  );
+
   useEffect(() => {
     dispatch(fetchAllTripsAsync());
   }, [dispatch]);
   //Pagination logic
   const safeTrips = filteredTrips || [];
+  console.log("safeTrips", safeTrips);
   const totalItems = safeTrips.length;
+  console.log("totalItems", totalItems);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentCards = safeTrips.slice(startIndex, startIndex + itemsPerPage);
+  console.log("currentCards", currentCards);
 
   // Function for delete items
   const handleDeleteModal = (item) => {
@@ -116,8 +126,10 @@ const MyTrips = ({ isOpen }) => {
               <div className="relative w-48">
                 <select
                   className="w-full h-10 px-4 pr-9 border border-blue-200 bg-white text-blue-900 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 "
-                  // value={selectedSortValue}
-                  // onChange={(e) => dispatch(setSelectedSortValue(e.target.value))}
+                  value={selectedSortValue}
+                  onChange={(e) =>
+                    dispatch(setSelectedSortValue(e.target.value))
+                  }
                 >
                   <option value="none">Filters</option>
                   <option value="low">Price (Low-High)</option>
