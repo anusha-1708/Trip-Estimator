@@ -42,12 +42,93 @@ export const getDashboardSummary = async (req, res) => {
       totalAmount += fixed + other;
     });
 
+    const monthlyTrips = await Trip.aggregate([
+      {
+        $match: {
+          created_by: userId,
+          deleted_at: null,
+          createdAt: { $gte: start, $lt: end },
+        },
+      },
+      {
+        $group: {
+          _id: { $month: "$createdAt" },
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const monthlyData = Array(12).fill(0);
+
+    monthlyTrips.forEach((item) => {
+      monthlyData[item._id - 1] = item.count;
+    });
+
+    const recentTripsData = await Trip.find({
+      created_by: userId,
+      deleted_at: null,
+    })
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    const recentTrips = recentTripsData.map((trip) => {
+      const fixed =
+        (trip.fixedExpense?.foodExpense || 0) +
+        (trip.fixedExpense?.travelExpense || 0) +
+        (trip.fixedExpense?.stayExpense || 0);
+
+      const other = (trip.otherExpense || []).reduce(
+        (sum, item) => sum + (item.otherExpenses || 0),
+        0,
+      );
+      const totalCost = fixed + other;
+      return { ...trip._doc, totalCost };
+    });
+
+    const expensiveTrips = trips
+      .map((trip) => {
+        const fixed =
+          (trip.fixedExpense?.foodExpense || 0) +
+          (trip.fixedExpense?.travelExpense || 0) +
+          (trip.fixedExpense?.stayExpense || 0);
+
+        const other = (trip.otherExpense || []).reduce(
+          (sum, item) => sum + (item.otherExpenses || 0),
+          0,
+        );
+        const totalCost = fixed + other;
+        return { ...trip._doc, totalCost };
+      })
+      .sort((a, b) => b.totalCost - a.totalCost)
+      .slice(0, 3);
+
+    const cheapTrips = trips
+      .map((trip) => {
+        const fixed =
+          (trip.fixedExpense?.foodExpense || 0) +
+          (trip.fixedExpense?.travelExpense || 0) +
+          (trip.fixedExpense?.stayExpense || 0);
+
+        const other = (trip.otherExpense || []).reduce(
+          (sum, item) => sum + (item.otherExpenses || 0),
+          0,
+        );
+        const totalCost = fixed + other;
+        return { ...trip._doc, totalCost };
+      })
+      .sort((a, b) => a.totalCost - b.totalCost)
+      .slice(0, 3);
+
     res.status(200).json({
       success: true,
       data: {
         totalTrips,
         totalSharedTrips,
         totalAmount,
+        monthlyTrips: monthlyData,
+        recentTrips,
+        expensiveTrips,
+        cheapTrips,
       },
     });
   } catch (error) {

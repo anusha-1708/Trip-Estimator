@@ -6,14 +6,6 @@ import { handleSuccess, handleError } from "../../utils/common";
 import { fetchUsers } from "../../api/user";
 
 const ShareTripModal = ({ open, onClose, tripId }) => {
-  // Mock Data - Replace this with an actual API call to fetch your users
-  const [availableUsers] = useState([
-    { id: "1", name: "John Doe", email: "john@example.com" },
-    { id: "2", name: "Sarah Smith", email: "sarah@design.com" },
-    { id: "3", name: "Mike Ross", email: "mike.r@law.com" },
-    { id: "4", name: "Harvey Specter", email: "harvey@pearson.com" },
-    { id: "5", name: "Rachel Zane", email: "rachel@legal.com" },
-  ]);
   const [members, setMembers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
@@ -70,10 +62,7 @@ const ShareTripModal = ({ open, onClose, tripId }) => {
         <div className="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
           <div>
             <h2 className="text-xl font-bold text-slate-800">Add Members</h2>
-            <p className="text-xs text-slate-500">
-              Sharing
-              {/* <span className="text-blue-600 font-semibold">{tripName}</span> */}
-            </p>
+            <p className="text-xs text-slate-500">Sharing</p>
           </div>
           <button
             onClick={onClose}

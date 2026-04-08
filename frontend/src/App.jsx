@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { getCurrentUserAsync } from "./store/auth.store";
 import { ToastContainer } from "react-toastify";
 import Sidebar from "./component/Sidebar";
-import Settings from "./pages/Setting/Settings";
+
 import { Navigate } from "react-router";
 import Modal from "@mui/material/Modal";
 import StepperForm from "./formComponent/index";
@@ -56,7 +56,6 @@ function App() {
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/trips" element={<MyTrips isOpen={handleOpen} />} />
-            <Route path="/settings" element={<Settings />} />
             <Route path="/shared-trips" element={<ShareTrips />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>

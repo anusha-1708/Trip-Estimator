@@ -2,7 +2,7 @@ import TripSchema from "../models/trips.schema.js";
 import SharedTrip from "../models/sharedTrip.schema.js";
 export const authorizeMiddleware = async (req, res, next) => {
   const userId = req.user.id;
-  const { tripId } = req.params;
+  const tripId = req.params.tripId || req.params.id;
 
   const trip = await TripSchema.findById(tripId);
   if (!trip) {

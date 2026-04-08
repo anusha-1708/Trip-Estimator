@@ -13,7 +13,10 @@ const ShareTrips = () => {
   useEffect(() => {
     fetchSharedTrips();
   }, []);
-
+  const formatDate = (value) => {
+    const date = new Date(value);
+    return date.toLocaleDateString();
+  };
   return (
     <div className="min-h-screen bg-white">
       <div className="mx-auto max-w-5xl px-6 py-10">
@@ -61,7 +64,7 @@ const ShareTrips = () => {
                         Start
                       </p>
                       <p className="text-base text-blue-950 font-semibold">
-                        {trip.startDate}
+                        {formatDate(trip.startDate)}
                       </p>
                     </div>
                     <div>
@@ -69,7 +72,7 @@ const ShareTrips = () => {
                         End
                       </p>
                       <p className="text-base text-blue-950 font-semibold">
-                        {trip.endDate}
+                        {formatDate(trip.endDate)}
                       </p>
                     </div>
                   </div>

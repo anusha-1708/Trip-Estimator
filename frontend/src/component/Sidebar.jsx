@@ -21,7 +21,6 @@ const navItems = [
     path: "/shared-trips",
     icon: TbBrandTripadvisor,
   },
-  { title: "Settings", path: "/settings", icon: MdOutlineSettings },
 ];
 
 const Sidebar = () => {
