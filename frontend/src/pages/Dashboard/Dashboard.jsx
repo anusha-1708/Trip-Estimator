@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
 import Navbar from "../../component/Navbar";
+import { useState, useEffect } from "react";
 import { getDashboardSummary } from "../../api/dashboard";
 import BarChart from "../../component/Dashboard/Chart/BarChart";
 import ListCard from "../../component/Dashboard/ListCard/ListCard";
