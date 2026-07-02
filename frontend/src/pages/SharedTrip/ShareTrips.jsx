@@ -5,13 +5,25 @@ import { useEffect } from "react";
 
 const ShareTrips = () => {
   const [sharedTrips, setSharedTrips] = useState([]);
-  const fetchSharedTrips = async () => {
-    const response = await getSharedTrips();
-    setSharedTrips(response.data);
-  };
 
   useEffect(() => {
-    fetchSharedTrips();
+    let isMounted = true;
+
+    getSharedTrips()
+      .then((response) => {
+        if (isMounted) {
+          setSharedTrips(response?.data || []);
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setSharedTrips([]);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
   const formatDate = (value) => {
     const date = new Date(value);

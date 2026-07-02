@@ -1,5 +1,5 @@
 import Button from "../Button/Button";
-const DeleteModal = ({ id, handleClose }) => {
+const DeleteModal = ({ id, handleClose, handleDelete }) => {
   return (
     <div className="flex flex-col gap-3 text-center p-3 m-4">
       <h2 className="text-2xl font-bold text-blue-900">Delete Trip</h2>

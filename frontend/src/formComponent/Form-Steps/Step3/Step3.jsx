@@ -5,13 +5,7 @@ import { FaRupeeSign } from "react-icons/fa";
 import { Button } from "@mui/material";
 
 const Step3 = () => {
-  const {
-    control,
-    getValues,
-    watch,
-    setValue,
-    formState: { errors, touchedFields },
-  } = useFormContext();
+  const { control, getValues, watch, setValue } = useFormContext();
   const { append, remove, fields } = useFieldArray({
     control,
     name: "otherExpense",

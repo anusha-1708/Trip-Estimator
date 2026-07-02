@@ -16,9 +16,7 @@ import DialogBox from "../../component/DailogModal/Dailog";
 import {
   fetchAllTripsAsync,
   deleteTripAsync,
-  setSearchQuery,
   setSelectedSortValue,
-  setSelectedPrice,
 } from "../../store/trip.store";
 import { downloadTripSummary } from "../../api/trip";
 import ShareTripModal from "../../component/DailogModal/ShareTripModal";
@@ -30,13 +28,10 @@ const MyTrips = ({ isOpen }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedItem, setSelectedItem] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  const [checkboxClick, setCheckboxClick] = useState(false);
   const [modalMode, setModalMode] = useState(null);
   const { filteredTrips } = useFilterTrips();
   const dispatch = useDispatch();
-  const { selectedSortValue, selectedPrice } = useSelector(
-    (state) => state.stepper,
-  );
+  const { selectedSortValue } = useSelector((state) => state.stepper);
 
   useEffect(() => {
     dispatch(fetchAllTripsAsync());
@@ -89,7 +84,6 @@ const MyTrips = ({ isOpen }) => {
   const handleClose = () => {
     setOpenModal(false);
     setSelectedItem(null);
-    setCheckboxClick(false);
   };
 
   const handleShareTrip = (tripId) => {

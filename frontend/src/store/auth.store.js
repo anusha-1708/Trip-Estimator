@@ -40,7 +40,7 @@ export const getCurrentUserAsync = createAsyncThunk(
     try {
       const response = await getCurrentUser();
       return response;
-    } catch (error) {
+    } catch {
       return rejectWithValue(null);
     }
   },
@@ -52,8 +52,8 @@ export const logoutUserAsync = createAsyncThunk(
     try {
       const response = await logoutUser();
       return response;
-    } catch (error) {
-      return rejectWithValue(error?.response?.data?.message || "Logout failed");
+    } catch {
+      return rejectWithValue("Logout failed");
     }
   },
 );
@@ -74,7 +74,7 @@ const authSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(registerUserAsync.fulfilled, (state, action) => {
+      .addCase(registerUserAsync.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
       })
@@ -120,5 +120,4 @@ const authSlice = createSlice({
       });
   },
 });
-export const {} = authSlice.actions;
 export default authSlice.reducer;

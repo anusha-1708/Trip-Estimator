@@ -17,7 +17,7 @@ const ShareTripModal = ({ open, onClose, tripId }) => {
       try {
         const res = await fetchUsers();
         setMembers(res?.data || []);
-      } catch (err) {
+      } catch {
         handleError("Failed to fetch users");
       }
     };

@@ -43,7 +43,7 @@ const StepperForm = ({ selectedId, onClose }) => {
     } else {
       reset();
     }
-  }, [trip]);
+  }, [trip, reset]);
 
   const handleNext = async () => {
     const fields = stepFields[activeStep];

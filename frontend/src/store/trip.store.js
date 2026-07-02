@@ -52,7 +52,7 @@ export const deleteTripAsync = createAsyncThunk(
   "trips/delete",
   async (id, { rejectWithValue }) => {
     try {
-      const response = await deleteTrip(id);
+      await deleteTrip(id);
       return id;
     } catch (error) {
       return rejectWithValue(error.message);
